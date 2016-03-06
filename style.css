@@ -1,0 +1,50 @@
+body {
+    background: url('https://orig08.deviantart.net/fd6c/f/2016/024/b/5/peaches__neko_atsume__by_garymotherpuckingoak-d9p8yy8.png') no-repeat center center fixed;
+    background-size: cover;
+    
+    font-family: 'Avenir Next', sans-serif;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.header-container,
+.footer-container {
+    height: 65px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.main-container {
+    height: 500px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    
+    display: flex;
+    /* play around with these: */
+    /* they only work with display: flex; */
+    
+    /*justify-content: flex-end;*/
+    /*justify-content: center;*/
+    /*justify-content: space-between;*/
+    /*justify-content: space-around;*/
+    
+    /* for more info: */
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout */
+}
+
+.reddit-container,
+.photo-container {
+    display: flex;
+    justify-content: center;
+    
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 35%;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
