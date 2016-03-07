@@ -55,6 +55,13 @@ body {
     border-radius: 5px;
 }
 
+.click-button {
+  width: 100px;
+  height: 50px;
+  border-radius: 8px;
+  background-color: #E0A37F;
+}
+
 .reddit-container,
 .photo-container {
     width: 100%;

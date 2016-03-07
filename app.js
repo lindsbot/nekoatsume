@@ -1,18 +1,31 @@
+// first off, let's define a function that will run when
+// we click our "click me!" button
+
+function clickMe() {
+    // comment the next line out if the alert is annoying :)
+    alert("I've been clicked");
+}
+
+
+
+
+
+
 // we'll use this later
 function renderRedditPosts(redditPosts){
     $.each(redditPosts, function(index, post){
         $('.reddit-posts').append(
-            '<div class="reddit-post">' + 
+            '<div class="reddit-post">' +
                 '<div class="score">' + post.data.score + '</div>' +
                 '<a href="' + post.data.url +'" target="_blank">' +
-                    '<div>' + post.data.title + '</div>' + 
+                    '<div>' + post.data.title + '</div>' +
                 '</a>' +
-                '<div> ~' + post.data.author + '</div>' + 
+                '<div> ~' + post.data.author + '</div>' +
             '</div>'
         );
     });
 }
-    
+
 // we'll use this later
 function renderPhotos(redditPosts){
     $.each(redditPosts, function(index, post) {
@@ -26,18 +39,23 @@ function renderPhotos(redditPosts){
     })
 }
 
-
 // let's start our app with a $( document ).ready() block.
 // https://learn.jquery.com/using-jquery-core/document-ready/
 
 $( document ).ready(function() {
     // all our code will go inside this block, because now the document is ready for us
-    
+
     // console.log will output to your javascript console
     // it's a helpful tool for checking in with your code
     // open the js console by pressing option + command + j on your site
     console.log( "ready!" );
-    
+
+    // first let's hook up our ClickMe function to the click-button button
+    // that way, when we click our button, the ClickMe function will run
+    $('.click-button').on('click', clickMe)
+
+
+
     // let's define a function that will get some data from reddit
     function fetchSubredditPosts() {
         // we'll use the jQuery $.ajax() function to get posts from the subreddit
@@ -46,34 +64,34 @@ $( document ).ready(function() {
             method: 'GET'
         })
         .done(function(response){ /* the done function runs when the response comes back from reddit */
-            
+
             // this function is called a 'callback'
             // the done function calls this function with the response it gets
-        
+
             // let's look at our data
             console.log("here's our response:");
             console.log(response);
-            
+
             // if we open it up, we can see it has a property called 'data'
             // that sounds important
             // let's look at it
             console.log("here is the data:");
             console.log(response.data);
-            
+
             // the children property contains our reddit posts
             // let's look at it
             console.log("here is the children array of the data object: ");
             console.log(response.data.children);
             console.log(" ^^^^^ those are our reddit posts! :D ");
-            
-            
+
+
             // now we can render our data on the screen!
             renderRedditPosts(response.data.children);
             renderPhotos(response.data.children);
         });
     }
-        
+
     // now we can CALL the function we just defined
     fetchSubredditPosts();
-    
+
 });
