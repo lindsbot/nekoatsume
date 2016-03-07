@@ -1,3 +1,32 @@
+// we'll use this later
+function renderRedditPosts(redditPosts){
+    $.each(redditPosts, function(index, post){
+        $('.reddit-posts').append(
+            '<div class="reddit-post">' + 
+                '<div class="score">' + post.data.score + '</div>' +
+                '<a href="' + post.data.url +'" target="_blank">' +
+                    '<div>' + post.data.title + '</div>' + 
+                '</a>' +
+                '<div> ~' + post.data.author + '</div>' + 
+            '</div>'
+        );
+    });
+}
+    
+// we'll use this later
+function renderPhotos(redditPosts){
+    $.each(redditPosts, function(index, post) {
+        if (post.data.post_hint === 'image' || post.data.post_hint === 'link') {
+            $('.photos').append(
+                '<div class="reddit-image">' +
+                    '<img src="' + post.data.preview.images[0].source.url + '"/>' +
+                '</div>'
+            );
+        }
+    })
+}
+
+
 // let's start our app with a $( document ).ready() block.
 // https://learn.jquery.com/using-jquery-core/document-ready/
 
@@ -16,45 +45,35 @@ $( document ).ready(function() {
         $.ajax('https://www.reddit.com/r/nekoatsume.json', {
             method: 'GET'
         })
-        .done(function(data){ /* the done function runs when the data comes back from reddit */
+        .done(function(response){ /* the done function runs when the response comes back from reddit */
             
             // this function is called a 'callback'
-            // the done function calls this function with the data it gets
+            // the done function calls this function with the response it gets
         
             // let's look at our data
-            console.log("here's our data:")
-            console.log(data)
+            console.log("here's our response:");
+            console.log(response);
             
-            // wow, that's a crazy object
-            // if we open it up, we can see it has a property called 'children'
-            // 
+            // if we open it up, we can see it has a property called 'data'
+            // that sounds important
+            // let's look at it
+            console.log("here is the data:");
+            console.log(response.data);
             
-        })
+            // the children property contains our reddit posts
+            // let's look at it
+            console.log("here is the children array of the data object: ");
+            console.log(response.data.children);
+            console.log(" ^^^^^ those are our reddit posts! :D ");
+            
+            
+            // now we can render our data on the screen!
+            renderRedditPosts(response.data.children);
+            renderPhotos(response.data.children);
+        });
     }
         
-        
-        
-    
-    
-    
-    
-    
-    
+    // now we can CALL the function we just defined
     fetchSubredditPosts();
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 });
